@@ -1,8 +1,24 @@
 import re
 
-date_regex = re.compile(r'^(0?[1-9]|[1-2][0-9|3[0-1])[/.-](0?[1-9]|1[1-2])[/.-](1[0-9]{3}|2[0-9]{3})$')
+date_regex = re.compile(
+    r'''
+    ^
+    (0?[1-9]|[1-2][0-9|3[0-1])
+    [/.-]
+    (0?[1-9]|1[1-2])
+    [/.-]
+    (1[0-9]{3}|2[0-9]{3})
+    $
+    ''',re.VERBOSE)
+
+
 def detect_date(date):
     match_object = date_regex.search(date)
+
+    if not match_object:
+        print('Date is invalid.')
+        return
+    
     day, month, year = match_object.groups()
 
     if month == 1 or month == 3 or month == 5 or month == 7 or month == 8 or month == 10 or month == 12:
